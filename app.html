@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MediMind App</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="app-body">
+
+
+    <div class="app-container">
+
+
+        <!-- TOP HEADER -->
+
+        <div class="app-header">
+
+            <h1>💊 MediMind</h1>
+
+            <p>Your smart medicine companion</p>
+
+        </div>
+
+
+
+        <!-- TODAY SCREEN -->
+
+        <div id="todayScreen" class="screen active">
+
+            <div class="progress-card">
+
+                <div class="progress-circle">
+                    <span id="progressText">0%</span>
+                </div>
+
+                <div>
+
+                    <h2>Good Morning!</h2>
+
+                    <p id="doseCount">0 of 3 doses taken</p>
+
+                </div>
+
+            </div>
+
+
+            <h2 class="section-title">Today's Doses</h2>
+
+
+            <div id="medicineList">
+
+
+                <div class="medicine-card">
+
+                    <div class="medicine-icon">💊</div>
+
+                    <div class="medicine-info">
+
+                        <h3>Vitamin D3</h3>
+
+                        <p>1 tablet • After food</p>
+
+                    </div>
+
+                    <div class="medicine-time">
+
+                        <strong>8:00 AM</strong>
+
+                        <span id="status1">Due now</span>
+
+                    </div>
+
+                    <div class="medicine-buttons">
+
+                        <button onclick="takeMedicine(1)" class="take-btn">
+                            Take
+                        </button>
+
+                        <button onclick="skipMedicine(1)" class="skip-btn">
+                            Skip
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="medicine-card">
+
+                    <div class="medicine-icon">💊</div>
+
+                    <div class="medicine-info">
+
+                        <h3>Metformin</h3>
+
+                        <p>500 mg • After food</p>
+
+                    </div>
+
+                    <div class="medicine-time">
+
+                        <strong>2:00 PM</strong>
+
+                        <span id="status2">Upcoming</span>
+
+                    </div>
+
+                    <div class="medicine-buttons">
+
+                        <button onclick="takeMedicine(2)" class="take-btn">
+                            Take
+                        </button>
+
+                        <button onclick="skipMedicine(2)" class="skip-btn">
+                            Skip
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="medicine-card">
+
+                    <div class="medicine-icon">💊</div>
+
+                    <div class="medicine-info">
+
+                        <h3>Metformin</h3>
+
+                        <p>500 mg • After food</p>
+
+                    </div>
+
+                    <div class="medicine-time">
+
+                        <strong>8:00 PM</strong>
+
+                        <span id="status3">Upcoming</span>
+
+                    </div>
+
+                    <div class="medicine-buttons">
+
+                        <button onclick="takeMedicine(3)" class="take-btn">
+                            Take
+                        </button>
+
+                        <button onclick="skipMedicine(3)" class="skip-btn">
+                            Skip
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <button onclick="undoLast()" class="undo-btn">
+                ↩ Undo Last Action
+            </button>
+
+        </div>
+
+
+
+        <!-- ADD MEDICINE SCREEN -->
+
+        <div id="addScreen" class="screen">
+
+            <h2 class="section-title">Add Medicine</h2>
+
+
+            <div class="form-card">
+
+                <label>Medicine Name</label>
+
+                <input
+                    type="text"
+                    id="medicineName"
+                    placeholder="Example: Paracetamol"
+                >
+
+
+                <label>Dose</label>
+
+                <input
+                    type="text"
+                    id="medicineDose"
+                    placeholder="Example: 500 mg"
+                >
+
+
+                <label>Time</label>
+
+                <input
+                    type="time"
+                    id="medicineTime"
+                >
+
+
+                <label>Food Timing</label>
+
+                <select id="foodTiming">
+
+                    <option>Before food</option>
+
+                    <option>After food</option>
+
+                    <option>With food</option>
+
+                </select>
+
+
+                <button onclick="addMedicine()" class="add-btn">
+
+                    + Add Medicine
+
+                </button>
+
+
+                <p id="addMessage"></p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MY MEDS SCREEN -->
+
+        <div id="medsScreen" class="screen">
+
+            <h2 class="section-title">My Medicines</h2>
+
+
+            <div id="savedMedicineList">
+
+                <p class="empty-message">
+                    Your added medicines will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ASK AI SCREEN -->
+
+        <div id="aiScreen" class="screen">
+
+            <h2 class="section-title">Ask MediMind AI</h2>
+
+
+            <div class="ai-card">
+
+                <p class="ai-intro">
+
+                    Ask general questions about medicine timing,
+                    missed doses and food timing.
+
+                </p>
+
+
+                <div class="quick-questions">
+
+                    <button onclick="quickQuestion('missed')">
+                        I missed a dose
+                    </button>
+
+                    <button onclick="quickQuestion('food')">
+                        Before or after food?
+                    </button>
+
+                    <button onclick="quickQuestion('next')">
+                        When is my next dose?
+                    </button>
+
+                </div>
+
+
+                <textarea
+                    id="aiQuestion"
+                    placeholder="Type your question here..."
+                ></textarea>
+
+
+                <button onclick="askAI()" class="ask-btn">
+
+                    Ask AI
+
+                </button>
+
+
+                <div id="aiAnswer" class="ai-answer">
+
+                    Hello! How can I help you today?
+
+                </div>
+
+
+                <p class="disclaimer">
+
+                    General guidance only. Not a substitute for a doctor.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BOTTOM NAVIGATION -->
+
+        <nav class="bottom-nav">
+
+            <button onclick="showScreen('todayScreen')">
+                🏠<br>
+                <span>Today</span>
+            </button>
+
+
+            <button onclick="showScreen('addScreen')">
+                ➕<br>
+                <span>Add</span>
+            </button>
+
+
+            <button onclick="showScreen('medsScreen'); displaySavedMedicines()">
+                💊<br>
+                <span>My Meds</span>
+            </button>
+
+
+            <button onclick="showScreen('aiScreen')">
+                🤖<br>
+                <span>Ask AI</span>
+            </button>
+
+        </nav>
+
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
